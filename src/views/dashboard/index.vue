@@ -1,0 +1,51 @@
+<template>
+  <div class="dashboard-container">
+    <el-row>
+  <el-col :span="24">
+    <LineEcharts/>
+  </el-col>
+</el-row>
+<el-row>
+  <el-col :span="12" style="margin-top: 30px;">
+    <LatestData/>
+  </el-col>
+  <el-col :span="12">
+    <PieEcharts/>
+  </el-col>
+</el-row>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+import  LineEcharts  from "./componets/LineEcharts";
+import LatestData from "./componets/LatestData";
+import PieEcharts from "./componets/PieEcharts";
+
+export default {
+  name: 'Dashboard',
+  components: {
+    LineEcharts,
+    LatestData,
+    PieEcharts
+  },
+  computed: {
+    ...mapGetters([
+      'name'
+    ])
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.dashboard {
+  &-container {
+    margin: 30px;
+  }
+  &-text {
+    font-size: 30px;
+    line-height: 46px;
+  }
+  height: 90vh;
+}
+</style>
