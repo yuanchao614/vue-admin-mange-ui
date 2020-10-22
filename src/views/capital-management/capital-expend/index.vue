@@ -7,7 +7,7 @@
     </el-tabs>
     <el-row>
       <el-col :span="24">
-        <ExpendTableData :tableData="tableData" />
+        <ExpendTableData :payMethods="payMethods" />
       </el-col>
     </el-row>
   </div>
@@ -15,63 +15,27 @@
 
 <script>
 import ExpendTableData from "./componets/ExpendTableData";
+// import { getBillList } from "@/api/billService";
+
 export default {
   name: "CapitalExpend",
   components: {
-    ExpendTableData
+    ExpendTableData,
   },
   data() {
     return {
       activeName: "wechatPay",
-      tableData: [
-        {
-          date: "2016-05-02",
-          userId: "peter.park",
-          firstName: "peter",
-          lastName: "Park",
-          phone: "13981868694",
-          email: "2428306489@qq.com",
-          createBy: "admin",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-02",
-          userId: "peter.park",
-          firstName: "peter",
-          lastName: "Park",
-          phone: "13981868694",
-          email: "2428306489@qq.com",
-          createBy: "admin",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-02",
-          userId: "peter.park",
-          firstName: "peter",
-          lastName: "Park",
-          phone: "13981868694",
-          email: "2428306489@qq.com",
-          createBy: "admin",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-02",
-          userId: "peter.park",
-          firstName: "peter",
-          lastName: "Park",
-          phone: "13981868694",
-          email: "2428306489@qq.com",
-          createBy: "admin",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }
-      ]
+      payMethods: "微信",
     };
+  },
+  created() {
+    console.log("noted::::::::::");
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
-    }
-  }
+    },
+  },
 };
 </script>
 
