@@ -45,6 +45,8 @@ Vue.filter('dateformat', function(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
   return moment(dataStr).format(pattern)
 })
 
+export const eventBus = new Vue() // 全局eventBus
+
 new Vue({
   el: '#app',
   router,

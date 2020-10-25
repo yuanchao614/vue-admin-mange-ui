@@ -53,3 +53,11 @@ export function deleteUser(id) {
     method: 'delete'
   })
 }
+
+export function queryUserByMonth(data) {
+  return request({
+    url: '/userService/queryByMonth',
+    method: 'post',
+    data
+  })
+}

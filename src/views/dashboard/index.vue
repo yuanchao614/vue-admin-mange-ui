@@ -2,11 +2,17 @@
   <div class="dashboard-container">
     <el-row>
   <el-col :span="24">
+    <PanelGroup />
+    <!-- <LineEcharts/> -->
+  </el-col>
+</el-row>
+<el-row>
+    <el-col :span="24">
     <LineEcharts/>
   </el-col>
 </el-row>
 <el-row>
-  <el-col :span="12" style="margin-top: 30px;">
+   <el-col :span="12" style="margin-top: 30px;">
     <LatestData/>
   </el-col>
   <el-col :span="12">
@@ -21,13 +27,15 @@ import { mapGetters } from 'vuex'
 import  LineEcharts  from "./componets/LineEcharts";
 import LatestData from "./componets/LatestData";
 import PieEcharts from "./componets/PieEcharts";
+import PanelGroup from "./componets/PanelGroup";
 
 export default {
   name: 'Dashboard',
   components: {
     LineEcharts,
     LatestData,
-    PieEcharts
+    PieEcharts,
+    PanelGroup
   },
   computed: {
     ...mapGetters([

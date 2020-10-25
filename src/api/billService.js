@@ -8,25 +8,33 @@ export function getBillList(params) {
   })
 }
 
-export function createUser(data) {
+export function createBill(data) {
   return request({
-    url: '/userService',
+    url: '/billService',
     method: 'post',
     data
   })
 }
 
-export function updateUser(id, data) {
+export function updateBill(id, data) {
   return request({
-    url: `/userService/${id}`,
+    url: `/billService/${id}`,
     method: 'put',
     data
   })
 }
 
-export function deleteUser(id) {
+export function deleteBill(id) {
   return request({
-    url: `/userService/${id}`,
+    url: `/billService/${id}`,
     method: 'delete'
   })
+}
+
+export function getBillByMonth(data) {
+    return request({
+        url: '/billService/queryByMonth',
+        method: 'post',
+        data
+      })
 }

@@ -1,5 +1,12 @@
 <template>
   <div class="expend-data">
+    <el-row>
+      <el-col :span="24">
+        <div class="header-box">
+          <el-button type="primary" @click="addExpend">新增账单</el-button>
+        </div>
+      </el-col>
+    </el-row>
     <el-table :data="tableDatas" style="width: 100%" v-if="tableDatas">
       <el-table-column label="SN" type="index" width="50"></el-table-column>
       <el-table-column label="订单号" width="150">
@@ -40,9 +47,9 @@
           <span>{{ scope.row.createBy }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注">
+      <el-table-column label="备注信息">
         <template slot-scope="scope">
-          <span>{{ scope.row.rmark }}</span>
+          <span>{{ scope.row.remark }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="150">
@@ -72,14 +79,24 @@
         ></el-pagination>
       </el-col>
     </el-row>
+    <AddExpend
+      v-if="addExpendVisible"
+      :addExpendVisible="addExpendVisible"
+      :editData="editData"
+      @closeAddExpend="closeDialog"
+    />
   </div>
 </template>
 
 <script>
-import { getBillList } from "@/api/billService";
+import { getBillList, deleteBill } from "@/api/billService";
+import AddExpend from "./AddExpend";
 
 export default {
   name: "ExpendTableData",
+  components: {
+    AddExpend,
+  },
   props: {
     payMethods: String,
   },
@@ -91,12 +108,28 @@ export default {
         pageSize: 10,
         total: 10,
       },
+      editData: Object,
+      addExpendVisible: false,
     };
   },
 
   created() {
-    console.log(9999999999);
+    console.log(this.payMethods, "noted:::::::");
     this.getTableData();
+  },
+
+  updated() {
+    // console.log(this.payMethods);
+  },
+
+  watch: {
+    payMethods: function (newValue, oldValue) {
+      console.log(newValue, oldValue);
+      if (newValue !== oldValue) {
+        this.pagination.pageIndex = 0;
+        this.getTableData();
+      }
+    },
   },
 
   methods: {
@@ -113,14 +146,64 @@ export default {
           console.log(this.tableDatas);
           this.pagination.total = res.total;
           this.$message({
-            message: "查询微信支出信息成功！",
+            message: `查询${this.payMethods}支出信息成功！`,
             type: "success",
           });
         }
       });
     },
 
-    pageIndexChange() {},
+    closeDialog(e) {
+      console.log(e);
+      this.addExpendVisible = false;
+      if (e.refresh) {
+        this.getTableData();
+      }
+    },
+
+    handleEdit(index, data) {
+      this.addExpendVisible = true;
+      this.editData = data;
+    },
+
+    handleDelete(index, data) {
+      const _this = this;
+      this.$confirm("此操作将永久删除数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          // console.log(000);
+          this.deleteExpend(data._id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+
+    deleteExpend(_id) {
+      deleteBill(_id).then((res) => {
+        console.log(res);
+        this.getTableData();
+        this.$message({
+          type: "success",
+          message: "删除成功!",
+        });
+      });
+    },
+    addExpend() {
+      this.editData = {};
+      this.addExpendVisible = true;
+    },
+
+    pageIndexChange() {
+      this.pagination.pageIndex = e - 1;
+      this.getTableData();
+    },
   },
 };
 </script>

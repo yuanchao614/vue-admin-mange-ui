@@ -3,6 +3,9 @@
 </template>
 
 <script>
+import { getAmontData } from '@/api/echartsService'
+import {getMonthStartAndEnd} from '@/utils/utils'
+
 export default {
   name: "PieEcharts",
   data() {
@@ -10,11 +13,11 @@ export default {
   },
 
   mounted() {
-      this.drawEcharts();
+      this.getPayMethodsAmontData();
   },
 
   methods: {
-    drawEcharts() {
+    drawPieEcharts(wechatData, zfbData, cachData) {
       let myChart = this.$echarts.init(document.getElementById("pieEcharts"));
       myChart.setOption({
         tooltip: {
@@ -24,27 +27,43 @@ export default {
         legend: {
           left: "center",
           bottom: "10",
-          data: ["Industries", "Technology", "Forex", "Gold", "Forecasts"]
+          data: ["微信支出", "支付宝支出", "现金支出"]
         },
         series: [
           {
-            name: "WEEKLY WRITE ARTICLES",
+            name: "本月支出占比",
             type: "pie",
             roseType: "radius",
             radius: [15, 95],
             center: ["50%", "38%"],
             data: [
-              { value: 320, name: "Industries" },
-              { value: 240, name: "Technology" },
-              { value: 149, name: "Forex" },
-              { value: 100, name: "Gold" },
-              { value: 59, name: "Forecasts" }
+              { value: wechatData, name: "微信支出" },
+              { value: zfbData, name: "支付宝支出" },
+              { value: cachData, name: "现金支出" },
             ],
             animationEasing: "cubicInOut",
             animationDuration: 2600
           }
         ]
       });
+    },
+
+    getPayMethodsAmontData() {
+      const [startDay, endDay] = getMonthStartAndEnd(0);
+      const param = {
+        startDay,
+        endDay
+      };
+      getAmontData(param).then(res => {
+        console.log(res, 'noted:::::::');
+        if (res.body) {
+          const data = res.body;
+          const wechatData = data.wechatAmountSum[0].sum;
+          const zfbData = data.zfbAmountSum[0].sum;
+          const cachData = data.cachAmountSum[0].sum;
+          this.drawPieEcharts(wechatData, zfbData, cachData);
+        }
+      })
     }
   }
 };
