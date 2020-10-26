@@ -12,10 +12,14 @@
   </el-col>
 </el-row>
 <el-row>
-   <el-col :span="12" style="margin-top: 30px;">
+   <el-col :span="8" style="margin-top: 30px;">
     <LatestData/>
   </el-col>
-  <el-col :span="12">
+   <el-col :span="8">
+    <!-- <LatestData/> -->
+    <p>日历部分</p>
+  </el-col>
+  <el-col :span="8" style="margin-top: 30px;">
     <PieEcharts/>
   </el-col>
 </el-row>

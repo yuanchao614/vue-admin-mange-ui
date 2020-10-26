@@ -1,5 +1,5 @@
 <template>
-  <div id="pieEcharts" :style="{width: '100%', height: '600px'}"></div>
+  <div id="pieEcharts" :style="{width: '100%', height: '600px'}" style="box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);"></div>
 </template>
 
 <script>
@@ -9,7 +9,10 @@ import {getMonthStartAndEnd} from '@/utils/utils'
 export default {
   name: "PieEcharts",
   data() {
-    return {};
+    const monthnumber = new Date().getMonth() + 1;
+    return {
+      monthnumber
+    };
   },
 
   mounted() {
@@ -20,6 +23,10 @@ export default {
     drawPieEcharts(wechatData, zfbData, cachData) {
       let myChart = this.$echarts.init(document.getElementById("pieEcharts"));
       myChart.setOption({
+         title: {
+        text: `${this.monthnumber}月支出占比`,
+        left: 'center'
+    },
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -37,9 +44,9 @@ export default {
             radius: [15, 95],
             center: ["50%", "38%"],
             data: [
-              { value: wechatData, name: "微信支出" },
-              { value: zfbData, name: "支付宝支出" },
-              { value: cachData, name: "现金支出" },
+              { value: wechatData, name: "微信支出", itemStyle: {color: '#24DB5A'} },
+              { value: zfbData, name: "支付宝支出", itemStyle: {color: '#1e90ff'} }, // 自定义颜色
+              { value: cachData, name: "现金支出", itemStyle: { color: '#ad2121'} },
             ],
             animationEasing: "cubicInOut",
             animationDuration: 2600

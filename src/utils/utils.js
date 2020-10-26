@@ -49,3 +49,23 @@ export function getDateStr3(date) {
   }
   return year+"-"+month+"-"+day;
 }
+
+// 获取明天日期
+export function getNextDate(date) {
+  var year = "";
+  var month = "";
+  var day = "";
+  var now = date;
+  year = ""+now.getFullYear();
+  if((now.getMonth()+1)<10){
+    month = "0"+(now.getMonth()+1);
+  }else{
+    month = ""+(now.getMonth()+1);
+  }
+  if((now.getDate())<10){
+    day = "0"+(now.getDate() + 1);
+  }else{
+    day = ""+(now.getDate() + 1);
+  }
+  return year+"-"+month+"-"+day;
+}

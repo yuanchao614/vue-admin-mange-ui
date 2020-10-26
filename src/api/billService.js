@@ -38,3 +38,11 @@ export function getBillByMonth(data) {
         data
       })
 }
+
+export function getTodayData(data) {
+  return request({
+      url: '/billService/today',
+      method: 'post',
+      data
+    })
+}

@@ -1,76 +1,82 @@
 <template>
-  <div class="latest-data-table">
-    <el-table 
-    :data="tableData" 
-    border 
-    style="width: 100%">
-      <el-table-column prop="date" label="日期" width="180"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-      <el-table-column prop="age" label="年龄" width="180"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
+  <div class="latest-data-table" style="box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);">
+    <div style="width: 100%;height: 50px;" class="flex is-justify-center is-align-center">
+      <span style="font-size: 20px;">今日支出</span>
+    </div>
+    <el-table :data="tableData" style="width: 100%" v-if="tableData">
+      <el-table-column label="SN" type="index" width="50"></el-table-column>
+      <el-table-column label="支付方式">
+        <template slot-scope="scope">
+          <span>{{ scope.row.payMethods }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="账单分类">
+        <template slot-scope="scope">
+          <span>{{ scope.row.billCategry }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="金额" width="60">
+        <template slot-scope="scope">
+          <span>{{ scope.row.amount }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" width="200">
+        <template slot-scope="scope">
+          <i class="el-icon-time"></i>
+          <span style="margin-left: 10px">{{
+            scope.row.createDate | dateformat
+          }}</span>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { getDateStr3, getNextDate } from '@/utils/utils'
+import { getTodayData } from '@/api/billService'
+
+
 export default {
   name: "LatestData",
   data() {
+    const tableData = []
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1516 弄"
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          age: "20",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
+      tableData
     };
+  },
+
+  created() {
+    const curentDate = getDateStr3(new Date());
+    const nextDate = getNextDate(new Date());
+    this.getLatestData(curentDate, nextDate)
+    console.log(curentDate, nextDate, 'noted:::::::::');
+  },
+
+  methods: {
+    getLatestData(today, nextDay) {
+      const param = {
+        today,
+        nextDay
+      };
+      getTodayData(param).then(res => {
+        if (res.length) {
+          this.tableData = res;
+        }
+      })
+    }
   }
 };
 </script>
-
-<style>
+<style scoped>
+.flex {
+  display: flex;
+}  
+.is-justify-center {
+  justify-content: center;
+}
+.is-align-center {
+  align-items: center;
+}
+</style>
 </style>
