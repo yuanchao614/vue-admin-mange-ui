@@ -72,9 +72,9 @@ export default {
             name: "微信支出",
             itemStyle: {
             normal: {
-              color: '#24DB5A',
+              color: '#34BFA3',
               lineStyle: {
-                color: '#24DB5A',
+                color: '#34BFA3',
                 width: 2
               }
             }

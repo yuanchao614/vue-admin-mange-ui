@@ -44,7 +44,7 @@ export default {
             radius: [15, 95],
             center: ["50%", "38%"],
             data: [
-              { value: wechatData, name: "微信支出", itemStyle: {color: '#24DB5A'} },
+              { value: wechatData, name: "微信支出", itemStyle: {color: '#34BFA3'} },
               { value: zfbData, name: "支付宝支出", itemStyle: {color: '#1e90ff'} }, // 自定义颜色
               { value: cachData, name: "现金支出", itemStyle: { color: '#ad2121'} },
             ],

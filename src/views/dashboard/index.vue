@@ -15,11 +15,10 @@
    <el-col :span="8" style="margin-top: 30px;">
     <LatestData/>
   </el-col>
-   <el-col :span="8">
-    <!-- <LatestData/> -->
-    <p>日历部分</p>
+   <el-col :span="6" :offset="1" style="margin-top: 30px;display: flex;justify-content: center;">
+    <Calendar />
   </el-col>
-  <el-col :span="8" style="margin-top: 30px;">
+  <el-col :span="8" :offset="1" style="margin-top: 30px;">
     <PieEcharts/>
   </el-col>
 </el-row>
@@ -32,6 +31,7 @@ import  LineEcharts  from "./componets/LineEcharts";
 import LatestData from "./componets/LatestData";
 import PieEcharts from "./componets/PieEcharts";
 import PanelGroup from "./componets/PanelGroup";
+import Calendar from './componets/Calendar';
 
 export default {
   name: 'Dashboard',
@@ -39,7 +39,8 @@ export default {
     LineEcharts,
     LatestData,
     PieEcharts,
-    PanelGroup
+    PanelGroup,
+    Calendar
   },
   computed: {
     ...mapGetters([

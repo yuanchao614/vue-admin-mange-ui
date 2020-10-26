@@ -18,6 +18,8 @@ import '@/permission' // permission control
 import echarts from 'echarts' // echarts
 
 import moment from 'moment'
+
+import VCalendar from 'v-calendar'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -37,6 +39,9 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(ElementUI)
 Vue.use(echarts)
 Vue.use(moment)
+Vue.use(VCalendar, {
+  componentPrefix: 'vc' // Use <vc-calendar /> instead of <v-calendar />
+})
 
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
