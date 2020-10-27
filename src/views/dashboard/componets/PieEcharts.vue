@@ -25,7 +25,8 @@ export default {
       myChart.setOption({
          title: {
         text: `${this.monthnumber}月支出占比`,
-        left: 'center'
+        left: 'center',
+        y: '15'
     },
         tooltip: {
           trigger: "item",
@@ -41,7 +42,7 @@ export default {
             name: "本月支出占比",
             type: "pie",
             roseType: "radius",
-            radius: [15, 95],
+            radius: [25, 95],
             center: ["50%", "38%"],
             data: [
               { value: wechatData, name: "微信支出", itemStyle: {color: '#34BFA3'} },

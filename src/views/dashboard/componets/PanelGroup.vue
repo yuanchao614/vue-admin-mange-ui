@@ -1,7 +1,7 @@
 .<template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
+      <div class="card-panel" @click="userBoxMessageToEcharts('userPanel')">
         <div class="card-panel-icon-wrapper icon-people">
           <svg-icon icon-class="peoples" class-name="card-panel-icon" />
         </div>
@@ -25,7 +25,7 @@
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('expendPanel')">
+      <div class="card-panel" @click="expendBoxMessageToEcharts('expendPanel')">
         <div class="card-panel-icon-wrapper icon-money">
           <svg-icon icon-class="money" class-name="card-panel-icon" />
         </div>
@@ -85,6 +85,14 @@ export default {
         this.messageToEcharts(message, 'test')
     },
 
+    userBoxMessageToEcharts(message) {
+      this.messageToEcharts(message, this.totalList[0].value)
+    },
+
+    expendBoxMessageToEcharts(message) {
+      this.messageToEcharts(message, this.totalList[2].value)
+    },
+
     getBillByMonthFun(startDay, endDay) {
       const param = {
           startDay: startDay,
@@ -96,7 +104,7 @@ export default {
               this.totalList[2].value.total = res.total;
               this.totalList[2].value.body = res.body;
               this.totalList[2].value.amountSum = res.amountSum[0].sum;
-              this.messageToEcharts('expendPanel', res.body)
+              this.messageToEcharts('expendPanel', res)
           }
       })
     },

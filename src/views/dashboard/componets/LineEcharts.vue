@@ -12,18 +12,27 @@ export default {
   data() {
     return {
       name: "line-echarts-page",
-      echartsData: Array,
+      echartsData: [],
       title: String,
     };
   },
 
   created() {
     eventBus.$on("expendPanel", (message) => {
-      console.log(message, "noted::::::::::00000");
-      this.echartsData = message;
+      console.log(message, "noted::::::::::expend");
+      this.echartsData = message.body ? message.body : [];
       const nowMonth = new Date();
       this.title = `${nowMonth.getMonth() + 1}月支出`;
+      if (this.echartsData.length) {
       this.drawExpend();
+      }
+    });
+    eventBus.$on("userPanel", (message) => {
+      console.log(message, "noted::::::::::user");
+      this.echartsData = message.body ? message.body : [];
+      const nowMonth = new Date();
+      this.title = `${nowMonth.getMonth() + 1}月新增用户`;
+      this.drawUser();
     });
   },
 
@@ -110,17 +119,70 @@ export default {
             data: cachAmontData,
           },
         ],
-      });
+      }, true); // setOption第二个参数为true代表清除上一次绘制的数据
     },
 
-    async drawExpend() {
+    drawSingalLine(xAxisData, seriesData) {
+      console.log(xAxisData, seriesData);
+       let myChart = this.$echarts.init(document.getElementById("myChart"));
+      myChart.setOption({
+        title: {
+          text: this.title,
+        },
+        tooltip: {
+          trigger: "axis",
+        },
+        legend: {
+          data: ["新增用户"],
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true,
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {},
+          },
+        },
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: xAxisData,
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "新增用户",
+            itemStyle: {
+            normal: {
+              color: '#34BFA3',
+              lineStyle: {
+                color: '#34BFA3',
+                width: 2
+              }
+            }
+          },
+          smooth: true,
+            type: "line",
+            smooth: true,
+            data: seriesData,
+          }
+        ],
+      }, true)
+    },
+
+   drawExpend() {
       let xAxisData = [];
       const seriesData = [];
       let xDateList = [];
       let wechatAmountData = [];
       let zfbAmontData = [];
       let cachAmontData = [];
-      await this.echartsData.forEach((item) => {
+      this.echartsData.forEach((item) => {
         const formatDate = moment(item.createDate).format("YYYY-MM-DD");
         item.formatDate = formatDate;
         xDateList.push(formatDate);
@@ -148,12 +210,30 @@ export default {
           }
         });
       });
-      console.log(xAxisData);
-      // console.log(wechatAmountData);
-      // console.log(zfbAmontData);
-      // console.log(cachAmontData);
       this.drawLine(xAxisData, wechatAmountData, zfbAmontData, cachAmontData);
     },
+
+
+    async drawUser() {
+      let xAxisData = [];
+      let seriesData = [];
+      let xDateList = [];
+      await this.echartsData.forEach((item) => {
+        const formatDate = moment(item.createDate).format("YYYY-MM-DD");
+        item.formatDate = formatDate;
+        xDateList.push(formatDate);
+      });
+      xAxisData = [...new Set(xDateList)].sort();
+      xAxisData.forEach((item, index) => {
+        seriesData[index] = 0;
+        this.echartsData.forEach(item2 => {
+          if (item === item2.formatDate) {
+            seriesData[index] += 1 
+          }
+        });
+      });
+      this.drawSingalLine(xAxisData, seriesData);
+    }
   },
 };
 </script>

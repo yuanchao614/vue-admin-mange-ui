@@ -192,6 +192,18 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/schedule-management',
+    component: Layout,
+    redirect: '/schedule-management/scheduling',
+    children: [{
+      path: 'scheduling',
+      name: 'Scheduling',
+      component: () => import('@/views/scheduling/index'),
+      meta: { title: 'Scheduling', icon: 'el-icon-s-order' }
+    }]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
