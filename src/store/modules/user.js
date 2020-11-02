@@ -32,11 +32,20 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
+      login({ userId: username.trim(), password: password }).then(response => {
+        if (response) {
+          const { data } = {
+            code: 20000,
+            data: {
+              token: 'admin-token'
+            }
+          }
+          commit('SET_TOKEN', data.token)
+          setToken(data.token)
+          resolve()
+        } else {
+          alert('login fail')
+        }
       }).catch(error => {
         reject(error)
       })

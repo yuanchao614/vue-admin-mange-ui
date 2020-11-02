@@ -1,7 +1,7 @@
 <template>
   <div class="latest-data-table" style="box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);">
     <div style="width: 100%;height: 50px;" class="flex is-justify-center is-align-center">
-      <span style="font-size: 20px;">今日支出</span>
+      <span style="font-size: 20px;">最新的10条支出账单</span>
     </div>
     <el-table :data="tableData" style="width: 100%" v-if="tableData">
       <el-table-column label="SN" type="index" width="50"></el-table-column>

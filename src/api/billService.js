@@ -32,17 +32,17 @@ export function deleteBill(id) {
 }
 
 export function getBillByMonth(data) {
-    return request({
-        url: '/billService/queryByMonth',
-        method: 'post',
-        data
-      })
+  return request({
+    url: '/billService/queryByMonth',
+    method: 'post',
+    data
+  })
 }
 
 export function getTodayData(data) {
   return request({
-      url: '/billService/today',
-      method: 'post',
-      data
-    })
+    url: '/billService/today',
+    method: 'post',
+    data
+  })
 }

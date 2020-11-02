@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
@@ -154,19 +154,19 @@ export const constantRoutes = [
     component: Layout,
     name: 'UserManagement',
     redirect: '/user-management/user',
-    meta: { title: 'UserManagement', icon: 'user' },
+    meta: { title: '用户管理', icon: 'user' },
     children: [
       {
         path: 'user',
         component: () => import('@/views/user-management/user/index'),
         name: 'User',
-        meta: { title: 'User' }
+        meta: { title: '用户列表' }
       },
       {
         path: 'role',
         component: () => import('@/views/user-management/role/index'),
         name: 'Role',
-        meta: { title: 'Role' }
+        meta: { title: '权限列表' }
       }
     ]
   },
@@ -175,19 +175,19 @@ export const constantRoutes = [
     component: Layout,
     name: 'CapitalManagement',
     redirect: '/capital-management/capital-expend',
-    meta: { title: 'CapitalManagement', icon: 'el-icon-s-goods' },
+    meta: { title: '资金管理', icon: 'el-icon-s-goods' },
     children: [
       {
         path: 'capital-expend',
         component: () => import('@/views/capital-management/capital-expend/index'),
         name: 'CapitalExpend',
-        meta: { title: 'CapitalExpend' }
+        meta: { title: '支出账单' }
       },
       {
         path: 'capital-income',
         component: () => import('@/views/capital-management/capital-income/index'),
         name: 'CapitalIncome',
-        meta: { title: 'CapitalIncome' }
+        meta: { title: '收入账单' }
       }
     ]
   },
@@ -200,7 +200,7 @@ export const constantRoutes = [
       path: 'scheduling',
       name: 'Scheduling',
       component: () => import('@/views/scheduling/index'),
-      meta: { title: 'Scheduling', icon: 'el-icon-s-order' }
+      meta: { title: '计划管理', icon: 'el-icon-s-order' }
     }]
   },
 

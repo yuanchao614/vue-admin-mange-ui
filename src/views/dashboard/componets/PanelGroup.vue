@@ -13,14 +13,14 @@
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
+      <div class="card-panel" @click="incomeBoxMessageToEcharts('incomePanel')">
         <div class="card-panel-icon-wrapper icon-message">
           <svg-icon icon-class="income" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">本月收入</div>
           <!-- <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" /> -->
-          999
+        <span style="font-size: 20px">{{totalList[1].value.amountSum}}</span>
         </div>
       </div>
     </el-col>
@@ -55,6 +55,7 @@
 <script>
 import {getMonthStartAndEnd} from '@/utils/utils'
 import {getBillByMonth} from '@/api/billService'
+import {getIncomeByMonth} from '@/api/incomeService'
 import {queryUserByMonth} from '@/api/user'
 import { number } from 'echarts/lib/export';
 import { eventBus } from '../../../main'
@@ -78,6 +79,7 @@ export default {
       const [startDay, endDay] = getMonthStartAndEnd(0);
       this.getBillByMonthFun(startDay, endDay);
       this.getUserByMonth(startDay, endDay);
+      this.getIncomeByMonthFun(startDay, endDay);
   },
 
   methods: {
@@ -87,6 +89,10 @@ export default {
 
     userBoxMessageToEcharts(message) {
       this.messageToEcharts(message, this.totalList[0].value)
+    },
+
+    incomeBoxMessageToEcharts(message) {
+      this.messageToEcharts(message, this.totalList[1].value)
     },
 
     expendBoxMessageToEcharts(message) {
@@ -122,6 +128,20 @@ export default {
                 }
             }
         )
+    },
+
+    getIncomeByMonthFun(startDay, endDay) {
+        const param = {
+            startDay: startDay,
+            endDay: endDay
+        };
+        getIncomeByMonth(param).then(res => {
+          if (res.body) {
+             this.totalList[1].value.total = res.total;
+             this.totalList[1].value.body = res.body;
+             this.totalList[1].value.amountSum = res.amountSum[0].sum;
+          }
+        })
     },
 
 messageToEcharts(type, data) {
