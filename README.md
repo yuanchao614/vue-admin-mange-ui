@@ -16,6 +16,26 @@
 
 * mongoDB
 
+### 项目截图
+
+- dashboard页面主要是对数据的可视化展示，计划展示，最新数据展示
+
+![dashoboard](/showImage/dashoboar.png)
+
+- 用户管理包含对用户基本的CRUD
+
+![userManagement](/showImage/user.png)
+
+- 收入支出账单管理可实现基本的CRUD
+
+![expendManagement](/showImage/expen.png)
+
+![expendManagement](/showImage/income.png)
+
+- 计划管理
+
+![scheduleManagement](/showImage/schedule.png)
+
 ### 后端接口
 
 [https://github.com/yuanchao614/vue-admin-manage-server-api](https://github.com/yuanchao614/vue-admin-manage-server-api)
