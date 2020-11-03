@@ -18,7 +18,7 @@
 
 ### 后端接口
 
-[https://github.com/yuanchao614/money-manage-server-api](https://github.com/yuanchao614/money-manage-server-api)
+[https://github.com/yuanchao614/vue-admin-manage-server-api](https://github.com/yuanchao614/vue-admin-manage-server-api)
 
 
 ### 项目基础模板
