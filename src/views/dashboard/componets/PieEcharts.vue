@@ -66,9 +66,9 @@ export default {
         console.log(res, 'noted:::::::');
         if (res.body) {
           const data = res.body;
-          const wechatData = data.wechatAmountSum[0].sum;
-          const zfbData = data.zfbAmountSum[0].sum;
-          const cachData = data.cachAmountSum[0].sum;
+          const wechatData = data.wechatAmountSum.length ? data.wechatAmountSum[0].sum : 0;
+          const zfbData = data.zfbAmountSum.length ? data.zfbAmountSum[0].sum : 0;
+          const cachData = data.cachAmountSum.length ? data.cachAmountSum[0].sum : 0;
           this.drawPieEcharts(wechatData, zfbData, cachData);
         }
       })

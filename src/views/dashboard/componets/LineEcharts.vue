@@ -84,7 +84,7 @@ export default {
           xAxis: {
             type: "category",
             boundaryGap: false,
-            data: xAxisData
+            data: xAxisData.length ? xAxisData : []
           },
           yAxis: {
             type: "value"
@@ -104,7 +104,7 @@ export default {
               smooth: true,
               type: "line",
               smooth: true,
-              data: wechatAmountData
+              data: wechatAmountData.length ? wechatAmountData : []
             },
             {
               name: "支付宝支出",
@@ -123,13 +123,13 @@ export default {
 
               type: "line",
               smooth: true,
-              data: zfbAmontData
+              data: zfbAmontData.length ? zfbAmontData : []
             },
             {
               name: "现金支出",
               type: "line",
               smooth: true,
-              data: cachAmontData
+              data: cachAmontData.length ? cachAmontData : []
             }
           ]
         },

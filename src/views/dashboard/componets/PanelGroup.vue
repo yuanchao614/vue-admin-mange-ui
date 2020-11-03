@@ -109,7 +109,7 @@ export default {
           if (res.body) {
               this.totalList[2].value.total = res.total;
               this.totalList[2].value.body = res.body;
-              this.totalList[2].value.amountSum = res.amountSum[0].sum;
+              this.totalList[2].value.amountSum =  res.amountSum.length ? res.amountSum[0].sum : 0;
               this.messageToEcharts('expendPanel', res)
           }
       })
@@ -139,7 +139,7 @@ export default {
           if (res.body) {
              this.totalList[1].value.total = res.total;
              this.totalList[1].value.body = res.body;
-             this.totalList[1].value.amountSum = res.amountSum[0].sum;
+             this.totalList[1].value.amountSum = res.amountSum.length ? res.amountSum[0].sum : 0;
           }
         })
     },
